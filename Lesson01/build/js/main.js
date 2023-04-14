@@ -66,4 +66,18 @@ const numberOrString = (value) => {
 };
 console.log(numberOrString(5));
 console.log(typeof numberOrString);
-//TYPE ASSETION AND TYPE CASTING
+//convert to more or less specific type
+let a = "hello";
+let b = a; // less specific type
+let c = a;
+let d = "world";
+let e = "world";
+const addOrConcat = (a, b, c) => {
+    if (c === "add")
+        return a + b;
+    return "" + a + b; // here we know that type coercion automatically converts this result to a string
+};
+const myVal = addOrConcat(2, 2, "concat"); //here we added the as STRING  so that typescript we overlook the fact that the addOrConcat function returns a union type  and not just a string
+//note that the addOrConcat function returns a string and here we are telling typesdcript that it is returning a number, this is wrong assertion.
+const letGo = addOrConcat(2, 2, "add");
+// the UNKNOWN KEYWORD

@@ -172,3 +172,33 @@ console.log(numberOrString(5));
 console.log(typeof numberOrString);
 
 //TYPE ASSETION AND TYPE CASTING
+//this simply means telling typescript the type of an element rather than allowing it to infer
+
+type One = string;
+type Two = number | string;
+type Three = "hello ";
+
+//convert to more or less specific type
+let a: One = "hello";
+let b = a as Two; // less specific type
+let c = a as Three;
+
+let d = <One>"world";
+let e = <string | number>"world";
+
+const addOrConcat = (
+  a: number,
+  b: number,
+  c: "add" | "concat"
+): number | string => {
+  if (c === "add") return a + b;
+  return "" + a + b; // here we know that type coercion automatically converts this result to a string
+};
+
+const myVal: string = addOrConcat(2, 2, "concat") as string; //here we added the as STRING  so that typescript we overlook the fact that the addOrConcat function returns a union type  and not just a string
+
+//note that the addOrConcat function returns a string and here we are telling typesdcript that it is returning a number, this is wrong assertion.
+
+const letGo: number = addOrConcat(2, 2, "add") as number;
+
+// the UNKNOWN KEYWORD
