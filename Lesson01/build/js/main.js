@@ -37,3 +37,33 @@ const sumAll = (a, b, c) => {
 console.log(sumAll(4, 2));
 console.log(sumAll(3, 6));
 //Rest parameters
+const total = (...nums) => {
+    // note that the Rest operaor should come last if you have to add other specific parameters
+    return nums.reduce((prev, curr) => prev + curr);
+};
+const totalRest = (complex, ...nums) => {
+    return nums.reduce((prev, curr) => prev + curr) + complex;
+};
+console.log(total(1, 2, 3, 4, 5));
+console.log(totalRest(1, 2, 5));
+// The Never keyword
+const createError = (message) => {
+    throw new Error(message); // we can see that typescriptn mautomatically infers that this function returns NEVER.
+    // WE USE THE NEVER keyword for error functions.
+};
+const infinite = () => {
+    let i = 1;
+    while (true) {
+        i++;
+        if (i > 100)
+            break; // without this line, this code will run inifitely, and thus the function returns never, but with limit checker we have just made the function return void
+    }
+};
+const numberOrString = (value) => {
+    if (typeof value === "string")
+        return "string";
+    return "number";
+};
+console.log(numberOrString(5));
+console.log(typeof numberOrString);
+//TYPE ASSETION AND TYPE CASTING
