@@ -115,96 +115,120 @@ let myTuple: [string, number, boolean] = ["dave", 32, true];
 
 // let us use the type keyword
 
-type mathFunction = (a: number, b: number, c?: number) => number; // now we can use this anytime we have a math operation.
-// interface mathFunction {
-//   (a: number, b: number): number
-// } // we can use the interface keyword too .
-// let division: mathFunction = (a, b) => a / b;
-// logMsg(division(8, 4));
+// type mathFunction = (a: number, b: number, c?: number) => number; // now we can use this anytime we have a math operation.
+// // interface mathFunction {
+// //   (a: number, b: number): number
+// // } // we can use the interface keyword too .
+// // let division: mathFunction = (a, b) => a / b;
+// // logMsg(division(8, 4));
 
-// //optional parameters
-// const addAll: mathFunction = (a, b, c) => {
+// // //optional parameters
+// // const addAll: mathFunction = (a, b, c) => {
+// //   return typeof c !== "undefined" ? a + b + c : a + b;
+// // };
+
+// const sumAll: mathFunction = (a, b, c) => {
 //   return typeof c !== "undefined" ? a + b + c : a + b;
+
+//   // return a + b + c;
 // };
 
-const sumAll: mathFunction = (a, b, c) => {
-  return typeof c !== "undefined" ? a + b + c : a + b;
+// console.log(sumAll(4, 2));
+// console.log(sumAll(3, 6));
 
-  // return a + b + c;
-};
+// //Rest parameters
 
-console.log(sumAll(4, 2));
-console.log(sumAll(3, 6));
+// const total = (...nums: number[]): number => {
+//   // note that the Rest operaor should come last if you have to add other specific parameters
+//   return nums.reduce((prev, curr) => prev + curr);
+// };
 
-//Rest parameters
+// const totalRest = (complex: number, ...nums: number[]): number => {
+//   return nums.reduce((prev, curr) => prev + curr) + complex;
+// };
 
-const total = (...nums: number[]): number => {
-  // note that the Rest operaor should come last if you have to add other specific parameters
-  return nums.reduce((prev, curr) => prev + curr);
-};
+// console.log(total(1, 2, 3, 4, 5));
+// console.log(totalRest(1, 2, 5));
 
-const totalRest = (complex: number, ...nums: number[]): number => {
-  return nums.reduce((prev, curr) => prev + curr) + complex;
-};
+// // The Never keyword
+// const createError = (message: string) => {
+//   throw new Error(message); // we can see that typescriptn mautomatically infers that this function returns NEVER.
+//   // WE USE THE NEVER keyword for error functions.
+// };
 
-console.log(total(1, 2, 3, 4, 5));
-console.log(totalRest(1, 2, 5));
+// const infinite = () => {
+//   let i: number = 1;
+//   while (true) {
+//     i++;
+//     if (i > 100) break; // without this line, this code will run inifitely, and thus the function returns never, but with limit checker we have just made the function return void
+//   }
+// };
 
-// The Never keyword
-const createError = (message: string) => {
-  throw new Error(message); // we can see that typescriptn mautomatically infers that this function returns NEVER.
-  // WE USE THE NEVER keyword for error functions.
-};
+// const numberOrString = (value: number | string): string => {
+//   if (typeof value === "string") return "string";
+//   return "number";
+// };
+// console.log(numberOrString(5));
+// console.log(typeof numberOrString);
 
-const infinite = () => {
-  let i: number = 1;
-  while (true) {
-    i++;
-    if (i > 100) break; // without this line, this code will run inifitely, and thus the function returns never, but with limit checker we have just made the function return void
+// //TYPE ASSETION AND TYPE CASTING
+// //this simply means telling typescript the type of an element rather than allowing it to infer
+
+// type One = string;
+// type Two = number | string;
+// type Three = "hello ";
+
+// //convert to more or less specific type
+// let a: One = "hello";
+// let b = a as Two; // less specific type
+// let c = a as Three;
+
+// let d = <One>"world";
+// let e = <string | number>"world";
+
+// const addOrConcat = (
+//   a: number,
+//   b: number,
+//   c: "add" | "concat"
+// ): number | string => {
+//   if (c === "add") return a + b;
+//   return "" + a + b; // here we know that type coercion automatically converts this result to a string
+// };
+
+// const myVal: string = addOrConcat(2, 2, "concat") as string; //here we added the as STRING  so that typescript we overlook the fact that the addOrConcat function returns a union type  and not just a string
+
+// //note that the addOrConcat function returns a string and here we are telling typesdcript that it is returning a number, this is wrong assertion.
+
+// const letGo: number = addOrConcat(2, 2, "add") as number;
+
+// // the DOM
+// const myImg = document.querySelector("img")!; //this is a none null assertion operator
+// const img = document.getElementById("#img") as HTMLImageElement;
+
+// img.src; // this works because we specified the HTMLIMAGEELEMENT
+
+// myImg.src; // This works because we specified the the null operator, the query selector infers that it is an HTMLImageElement.
+
+// CLASSES
+
+class Coder {
+  constructor(
+    public readonly name: string,
+    readonly music: string,
+    private age: number,
+    protected lang: string
+  ) {
+    this.name = name;
+    this.music = music;
+    this.age = age;
+    this.lang = lang;
   }
-};
 
-const numberOrString = (value: number | string): string => {
-  if (typeof value === "string") return "string";
-  return "number";
-};
-console.log(numberOrString(5));
-console.log(typeof numberOrString);
-
-//TYPE ASSETION AND TYPE CASTING
-//this simply means telling typescript the type of an element rather than allowing it to infer
-
-type One = string;
-type Two = number | string;
-type Three = "hello ";
-
-//convert to more or less specific type
-let a: One = "hello";
-let b = a as Two; // less specific type
-let c = a as Three;
-
-let d = <One>"world";
-let e = <string | number>"world";
-
-const addOrConcat = (
-  a: number,
-  b: number,
-  c: "add" | "concat"
-): number | string => {
-  if (c === "add") return a + b;
-  return "" + a + b; // here we know that type coercion automatically converts this result to a string
-};
-
-const myVal: string = addOrConcat(2, 2, "concat") as string; //here we added the as STRING  so that typescript we overlook the fact that the addOrConcat function returns a union type  and not just a string
-
-//note that the addOrConcat function returns a string and here we are telling typesdcript that it is returning a number, this is wrong assertion.
-
-const letGo: number = addOrConcat(2, 2, "add") as number;
-
-// the DOM
-const myImg = document.querySelector("img")!; //this is a none null assertion operator
-const img = document.getElementById("#img") as HTMLImageElement;
-
-img.src; // this works because we specified the HTMLIMAGEELEMENT
-
-myImg.src; // This works because we specified the the null operator, the query selector infers that it is an HTMLImageElement.
+  public getAge() {
+    // we use the subclasses to access protected or private menbers
+    return this.lang;
+  }
+}
+const test = new Coder("Dave", "Rock", 30, "Typescript");
+console.log(test.music);
+console.log(test.getAge());
