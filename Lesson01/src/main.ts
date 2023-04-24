@@ -201,8 +201,6 @@ const myVal: string = addOrConcat(2, 2, "concat") as string; //here we added the
 
 const letGo: number = addOrConcat(2, 2, "add") as number;
 
-// the UNKNOWN KEYWORD
+// the DOM
 
-10 as string;
-// this is called double casting
-10 as unknown as string;
+const img = document.getElementById("#img");

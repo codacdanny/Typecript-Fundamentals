@@ -80,7 +80,5 @@ const addOrConcat = (a, b, c) => {
 const myVal = addOrConcat(2, 2, "concat"); //here we added the as STRING  so that typescript we overlook the fact that the addOrConcat function returns a union type  and not just a string
 //note that the addOrConcat function returns a string and here we are telling typesdcript that it is returning a number, this is wrong assertion.
 const letGo = addOrConcat(2, 2, "add");
-// the UNKNOWN KEYWORD
-10;
-// this is called double casting
-10;
+// the DOM
+const img = document.getElementById("#img");
