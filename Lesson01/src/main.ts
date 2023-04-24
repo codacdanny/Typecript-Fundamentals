@@ -202,5 +202,9 @@ const myVal: string = addOrConcat(2, 2, "concat") as string; //here we added the
 const letGo: number = addOrConcat(2, 2, "add") as number;
 
 // the DOM
+const myImg = document.querySelector("img")!; //this is a none null assertion operator
+const img = document.getElementById("#img") as HTMLImageElement;
 
-const img = document.getElementById("#img");
+img.src; // this works because we specified the HTMLIMAGEELEMENT
+
+myImg.src; // This works because we specified the the null operator, the query selector infers that it is an HTMLImageElement.

@@ -81,4 +81,7 @@ const myVal = addOrConcat(2, 2, "concat"); //here we added the as STRING  so tha
 //note that the addOrConcat function returns a string and here we are telling typesdcript that it is returning a number, this is wrong assertion.
 const letGo = addOrConcat(2, 2, "add");
 // the DOM
+const myImg = document.querySelector("img"); //this is a none null assertion operator
 const img = document.getElementById("#img");
+img.src; // this works because we specified the HTMLIMAGEELEMENT
+myImg.src; // This works because we specified the the null operator, the query selector infers that it is an HTMLImageElement.
