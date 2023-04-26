@@ -277,3 +277,56 @@ class Guitarist implements Musician {
     return `${this.name} plays ${this.instrument} by ${action}`;
   }
 }
+
+const great = new Guitarist("Nonso", "drums");
+
+console.log(great.play("beats"));
+
+/////////////////////////
+
+class Peeps {
+  static count: number = 0;
+  // the static keyword applies directly to the class and  not to the instances of the class
+  public id: number;
+  constructor(public name: string) {
+    this.name = name;
+    this.id = ++Peeps.count;
+  }
+}
+
+const p1 = new Peeps("Dave");
+const p2 = new Peeps("Dany");
+const p3 = new Peeps("Nonso");
+const p4 = new Peeps("Chidi");
+
+console.log(Peeps.count);
+
+/////////////////
+class Bands {
+  private dataState: string[];
+
+  constructor() {
+    this.dataState = [];
+  }
+
+  public get data(): string[] {
+    return this.dataState;
+  }
+
+  public set data(value: string[]) {
+    if (!value.every((el) => typeof el === "string")) {
+      throw new Error("Inputed parameters is not an array of strings");
+    }
+    for (const el of value) {
+      if (typeof el !== "string") {
+        throw new Error("Inputed parameters is not an array of strings");
+      }
+    }
+    this.dataState = value;
+  }
+}
+
+const PreBand = new Bands();
+PreBand.data = "test".split("");
+
+console.log(PreBand.data);

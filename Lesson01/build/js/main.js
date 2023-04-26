@@ -204,3 +204,42 @@ class Guitarist {
         return `${this.name} plays ${this.instrument} by ${action}`;
     }
 }
+const great = new Guitarist("Nonso", "drums");
+console.log(great.play("beats"));
+/////////////////////////
+class Peeps {
+    constructor(name) {
+        this.name = name;
+        this.name = name;
+        this.id = ++Peeps.count;
+    }
+}
+Peeps.count = 0;
+const p1 = new Peeps("Dave");
+const p2 = new Peeps("Dany");
+const p3 = new Peeps("Nonso");
+const p4 = new Peeps("Chidi");
+console.log(Peeps.count);
+/////////////////
+class Bands {
+    constructor() {
+        this.dataState = [];
+    }
+    get data() {
+        return this.dataState;
+    }
+    set data(value) {
+        if (!value.every((el) => typeof el === "string")) {
+            throw new Error("Inputed parameters is not an array of strings");
+        }
+        for (const el of value) {
+            if (typeof el !== "string") {
+                throw new Error("Inputed parameters is not an array of strings");
+            }
+        }
+        this.dataState = value;
+    }
+}
+const PreBand = new Bands();
+PreBand.data = "test".split("");
+console.log(PreBand.data);
