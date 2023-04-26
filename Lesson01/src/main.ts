@@ -226,9 +226,54 @@ class Coder {
 
   public getAge() {
     // we use the subclasses to access protected or private menbers
-    return this.lang;
+    return this.age;
   }
 }
 const test = new Coder("Dave", "Rock", 30, "Typescript");
 console.log(test.music);
 console.log(test.getAge());
+
+//Class extension
+
+class WebDev extends Coder {
+  constructor(
+    public computer: string,
+    name: string,
+    music: string,
+    age: number,
+    lang: string
+  ) {
+    super(name, music, age, lang);
+    this.computer = computer;
+  }
+
+  public getLang() {
+    return ` ${this.name} uses ${this.lang} on a ${this.computer} computer.`; //we accessed the the protected members because we are withing trhe subclsses, but once we try it outside the classes we get an error.
+    //note that we can't access the private members outside the class.
+  }
+}
+
+const Dany = new WebDev("PC", "Dany", "Rock", 30, "Typescript");
+console.log(Dany.getLang());
+
+// APPKYING AN INTERFACE TO A CLASS
+
+interface Musician {
+  name: string;
+  instrument: string;
+  play(action: string): string;
+}
+
+class Guitarist implements Musician {
+  name: string;
+  instrument: string;
+
+  constructor(name: string, instrument: string) {
+    this.name = name;
+    this.instrument = instrument;
+  }
+
+  play(action: string): string {
+    return `${this.name} plays ${this.instrument} by ${action}`;
+  }
+}
