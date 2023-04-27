@@ -368,7 +368,7 @@ console.log(todaysTransactions["Cake"]); // this is the downside of using index 
 ///////////////////////////
 
 interface Student {
-  [key: string]: number | string | number[] | undefined; //
+  //[key: string]: number | string | number[] | undefined; //
   name: string;
   GPA: number;
   classes?: number[];
@@ -380,4 +380,15 @@ const student: Student = {
   classes: [100, 30],
 };
 
-console.log(student.notThere); // TS does not have a problem with this because of the index interface we provided
+// TS does not have a problem with this because of the index interface we provided
+// console.log(student.notThere);
+for (const key in student) {
+  console.log(`${key}: ${student[key as keyof Student]}`);
+}
+// Another method
+
+Object.keys(student).map((key) => {
+  console.log(`${key}: ${student[key as keyof Student]}`);
+});
+
+///////////////////////////

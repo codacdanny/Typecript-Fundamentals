@@ -42,4 +42,13 @@ const student = {
     GPA: 4.0,
     classes: [100, 30],
 };
-console.log(student.notThere); // TS does not have a problem with this because of the index interface we provided
+// TS does not have a problem with this because of the index interface we provided
+// console.log(student.notThere);
+for (const key in student) {
+    console.log(`${key}: ${student[key]}`);
+}
+// Another method
+Object.keys(student).map((key) => {
+    console.log(`${key}: ${student[key]}`);
+});
+///////////////////////////
