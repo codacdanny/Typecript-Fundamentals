@@ -211,122 +211,173 @@ let myTuple: [string, number, boolean] = ["dave", 32, true];
 
 // CLASSES
 
-class Coder {
-  constructor(
-    public readonly name: string,
-    readonly music: string,
-    private age: number,
-    protected lang: string
-  ) {
-    this.name = name;
-    this.music = music;
-    this.age = age;
-    this.lang = lang;
-  }
+// class Coder {
+//   constructor(
+//     public readonly name: string,
+//     readonly music: string,
+//     private age: number,
+//     protected lang: string
+//   ) {
+//     this.name = name;
+//     this.music = music;
+//     this.age = age;
+//     this.lang = lang;
+//   }
 
-  public getAge() {
-    // we use the subclasses to access protected or private menbers
-    return this.age;
-  }
+//   public getAge() {
+//     // we use the subclasses to access protected or private menbers
+//     return this.age;
+//   }
+// }
+// const test = new Coder("Dave", "Rock", 30, "Typescript");
+// console.log(test.music);
+// console.log(test.getAge());
+
+// //Class extension
+
+// class WebDev extends Coder {
+//   constructor(
+//     public computer: string,
+//     name: string,
+//     music: string,
+//     age: number,
+//     lang: string
+//   ) {
+//     super(name, music, age, lang);
+//     this.computer = computer;
+//   }
+
+//   public getLang() {
+//     return ` ${this.name} uses ${this.lang} on a ${this.computer} computer.`; //we accessed the the protected members because we are withing trhe subclsses, but once we try it outside the classes we get an error.
+//     //note that we can't access the private members outside the class.
+//   }
+// }
+
+// const Dany = new WebDev("PC", "Dany", "Rock", 30, "Typescript");
+// console.log(Dany.getLang());
+
+// // APPKYING AN INTERFACE TO A CLASS
+
+// interface Musician {
+//   name: string;
+//   instrument: string;
+//   play(action: string): string;
+// }
+
+// class Guitarist implements Musician {
+//   name: string;
+//   instrument: string;
+
+//   constructor(name: string, instrument: string) {
+//     this.name = name;
+//     this.instrument = instrument;
+//   }
+
+//   play(action: string): string {
+//     return `${this.name} plays ${this.instrument} by ${action}`;
+//   }
+// }
+
+// const great = new Guitarist("Nonso", "drums");
+
+// console.log(great.play("beats"));
+
+// /////////////////////////
+
+// class Peeps {
+//   static count: number = 0;
+//   // the static keyword applies directly to the class and  not to the instances of the class
+//   public id: number;
+//   constructor(public name: string) {
+//     this.name = name;
+//     this.id = ++Peeps.count;
+//   }
+// }
+
+// const p1 = new Peeps("Dave");
+// const p2 = new Peeps("Dany");
+// const p3 = new Peeps("Nonso");
+// const p4 = new Peeps("Chidi");
+
+// console.log(Peeps.count);
+
+// /////////////////
+// class Bands {
+//   private dataState: string[];
+
+//   constructor() {
+//     this.dataState = [];
+//   }
+
+//   public get data(): string[] {
+//     return this.dataState;
+//   }
+
+//   public set data(value: string[]) {
+//     if (!value.every((el) => typeof el === "string")) {
+//       throw new Error("Inputed parameters is not an array of strings");
+//     }
+//     for (const el of value) {
+//       if (typeof el !== "string") {
+//         throw new Error("Inputed parameters is not an array of strings");
+//       }
+//     }
+//     this.dataState = value;
+//   }
+// }
+
+// const PreBand = new Bands();
+// PreBand.data = "test".split("");
+
+// console.log(PreBand.data);
+
+// INDEX SIGNATURES
+// This is an idex s=signature, the onjects keys here we allowed to be strings only, any data type is allowed except the boolean, but for the values we can allow all data types, we can even use unions.
+
+// interface TransactionObj {
+//   [key: string]: number;
+// }
+
+interface TransactionObj {
+  [key: string]: number; // we are further modifying this and rendering lines 337-339 useless, so we can add key value pairs automatically
+  Pizza: number;
+  Books: number;
+  Job: number;
 }
-const test = new Coder("Dave", "Rock", 30, "Typescript");
-console.log(test.music);
-console.log(test.getAge());
 
-//Class extension
+const todaysTransactions: TransactionObj = {
+  Pizza: -10,
+  Books: -5,
+  Job: 50,
+  Dave: 13,
+};
 
-class WebDev extends Coder {
-  constructor(
-    public computer: string,
-    name: string,
-    music: string,
-    age: number,
-    lang: string
-  ) {
-    super(name, music, age, lang);
-    this.computer = computer;
+let prop: string = "Pizza";
+
+const todaysNet = (transactions: TransactionObj): number => {
+  let total = 0;
+  for (const transaction in transactions) {
+    total += transactions[transaction];
   }
+  return total;
+};
 
-  public getLang() {
-    return ` ${this.name} uses ${this.lang} on a ${this.computer} computer.`; //we accessed the the protected members because we are withing trhe subclsses, but once we try it outside the classes we get an error.
-    //note that we can't access the private members outside the class.
-  }
-}
+console.log(todaysNet(todaysTransactions));
+console.log(todaysTransactions["Cake"]); // this is the downside of using index signatures, you can now access even undeclared Keys(they would return undefined), as far it is a string
 
-const Dany = new WebDev("PC", "Dany", "Rock", 30, "Typescript");
-console.log(Dany.getLang());
+///////////////////////////
 
-// APPKYING AN INTERFACE TO A CLASS
-
-interface Musician {
+interface Student {
+  [key: string]: number | string | number[] | undefined; //
   name: string;
-  instrument: string;
-  play(action: string): string;
+  GPA: number;
+  classes?: number[];
 }
 
-class Guitarist implements Musician {
-  name: string;
-  instrument: string;
+const student: Student = {
+  name: "John",
+  GPA: 4.0,
+  classes: [100, 30],
+};
 
-  constructor(name: string, instrument: string) {
-    this.name = name;
-    this.instrument = instrument;
-  }
-
-  play(action: string): string {
-    return `${this.name} plays ${this.instrument} by ${action}`;
-  }
-}
-
-const great = new Guitarist("Nonso", "drums");
-
-console.log(great.play("beats"));
-
-/////////////////////////
-
-class Peeps {
-  static count: number = 0;
-  // the static keyword applies directly to the class and  not to the instances of the class
-  public id: number;
-  constructor(public name: string) {
-    this.name = name;
-    this.id = ++Peeps.count;
-  }
-}
-
-const p1 = new Peeps("Dave");
-const p2 = new Peeps("Dany");
-const p3 = new Peeps("Nonso");
-const p4 = new Peeps("Chidi");
-
-console.log(Peeps.count);
-
-/////////////////
-class Bands {
-  private dataState: string[];
-
-  constructor() {
-    this.dataState = [];
-  }
-
-  public get data(): string[] {
-    return this.dataState;
-  }
-
-  public set data(value: string[]) {
-    if (!value.every((el) => typeof el === "string")) {
-      throw new Error("Inputed parameters is not an array of strings");
-    }
-    for (const el of value) {
-      if (typeof el !== "string") {
-        throw new Error("Inputed parameters is not an array of strings");
-      }
-    }
-    this.dataState = value;
-  }
-}
-
-const PreBand = new Bands();
-PreBand.data = "test".split("");
-
-console.log(PreBand.data);
+console.log(student.notThere); // TS does not have a problem with this because of the index interface we provided
