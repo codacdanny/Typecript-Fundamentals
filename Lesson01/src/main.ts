@@ -388,7 +388,26 @@ for (const key in student) {
 // Another method
 
 Object.keys(student).map((key) => {
-  console.log(`${key}: ${student[key as keyof Student]}`);
+  console.log(`${key}: ${student[key as keyof typeof student]}`);
 });
 
+const logStudentKey = (student: Student, key: keyof Student): void => {
+  console.log(`Student ${key}: ${student[key]}`);
+};
+
+logStudentKey(student, "name");
 ///////////////////////////
+
+// interface Incomes {
+//   [key: string]: number;
+// }
+//creating index signature with Types
+type Streams = "salary" | "bonus" | "sideHustle";
+
+type Incomes = Record<Streams, number | string>;
+
+const monthlyIncomes: Incomes = {
+  salary: 500,
+  bonus: 100,
+  sideHustle: 250,
+};
