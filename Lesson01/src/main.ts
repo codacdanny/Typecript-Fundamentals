@@ -338,76 +338,93 @@ let myTuple: [string, number, boolean] = ["dave", 32, true];
 //   [key: string]: number;
 // }
 
-interface TransactionObj {
-  [key: string]: number; // we are further modifying this and rendering lines 337-339 useless, so we can add key value pairs automatically
-  Pizza: number;
-  Books: number;
-  Job: number;
-}
-
-const todaysTransactions: TransactionObj = {
-  Pizza: -10,
-  Books: -5,
-  Job: 50,
-  Dave: 13,
-};
-
-let prop: string = "Pizza";
-
-const todaysNet = (transactions: TransactionObj): number => {
-  let total = 0;
-  for (const transaction in transactions) {
-    total += transactions[transaction];
-  }
-  return total;
-};
-
-console.log(todaysNet(todaysTransactions));
-console.log(todaysTransactions["Cake"]); // this is the downside of using index signatures, you can now access even undeclared Keys(they would return undefined), as far it is a string
-
-///////////////////////////
-
-interface Student {
-  //[key: string]: number | string | number[] | undefined; //
-  name: string;
-  GPA: number;
-  classes?: number[];
-}
-
-const student: Student = {
-  name: "John",
-  GPA: 4.0,
-  classes: [100, 30],
-};
-
-// TS does not have a problem with this because of the index interface we provided
-// console.log(student.notThere);
-for (const key in student) {
-  console.log(`${key}: ${student[key as keyof Student]}`);
-}
-// Another method
-
-Object.keys(student).map((key) => {
-  console.log(`${key}: ${student[key as keyof typeof student]}`);
-});
-
-const logStudentKey = (student: Student, key: keyof Student): void => {
-  console.log(`Student ${key}: ${student[key]}`);
-};
-
-logStudentKey(student, "name");
-///////////////////////////
-
-// interface Incomes {
-//   [key: string]: number;
+// interface TransactionObj {
+//   [key: string]: number; // we are further modifying this and rendering lines 337-339 useless, so we can add key value pairs automatically
+//   Pizza: number;
+//   Books: number;
+//   Job: number;
 // }
-//creating index signature with Types
-type Streams = "salary" | "bonus" | "sideHustle";
 
-type Incomes = Record<Streams, number | string>;
+// const todaysTransactions: TransactionObj = {
+//   Pizza: -10,
+//   Books: -5,
+//   Job: 50,
+//   Dave: 13,
+// };
 
-const monthlyIncomes: Incomes = {
-  salary: 500,
-  bonus: 100,
-  sideHustle: 250,
+// let prop: string = "Pizza";
+
+// const todaysNet = (transactions: TransactionObj): number => {
+//   let total = 0;
+//   for (const transaction in transactions) {
+//     total += transactions[transaction];
+//   }
+//   return total;
+// };
+
+// console.log(todaysNet(todaysTransactions));
+// console.log(todaysTransactions["Cake"]); // this is the downside of using index signatures, you can now access even undeclared Keys(they would return undefined), as far it is a string
+
+// ///////////////////////////
+
+// interface Student {
+//   //[key: string]: number | string | number[] | undefined; //
+//   name: string;
+//   GPA: number;
+//   classes?: number[];
+// }
+
+// const student: Student = {
+//   name: "John",
+//   GPA: 4.0,
+//   classes: [100, 30],
+// };
+
+// // TS does not have a problem with this because of the index interface we provided
+// // console.log(student.notThere);
+// for (const key in student) {
+//   console.log(`${key}: ${student[key as keyof Student]}`);
+// }
+// // Another method
+
+// Object.keys(student).map((key) => {
+//   console.log(`${key}: ${student[key as keyof typeof student]}`);
+// });
+
+// const logStudentKey = (student: Student, key: keyof Student): void => {
+//   console.log(`Student ${key}: ${student[key]}`);
+// };
+
+// logStudentKey(student, "name");
+// ///////////////////////////
+
+// // interface Incomes {
+// //   [key: string]: number;
+// // }
+// //creating index signature with Types
+// type Streams = "salary" | "bonus" | "sideHustle";
+
+// type Incomes = Record<Streams, number | string>;
+
+// const monthlyIncomes: Incomes = {
+//   salary: 500,
+//   bonus: 100,
+//   sideHustle: 250,
+// };
+
+// for (const revenue in monthlyIncomes) {
+//   console.log(monthlyIncomes[revenue as keyof Incomes]);
+// }
+////////////////////////////////
+// Geneeric types
+//Generics are used to create reusable components, they are used to create components that can work with a variety of data types instead of a single one. It is like creating a reusable variable that can hold any type of data.
+
+const echo = <T>(arg: T): T => arg;
+
+const isObj = <T>(arg: T): boolean => {
+  return typeof arg === "object" && arg !== null && !Array.isArray(arg);
 };
+console.log(isObj(true));
+console.log(isObj(Array(3)));
+console.log(isObj({ cow: "moo" }));
+console.log(isObj(undefined));
