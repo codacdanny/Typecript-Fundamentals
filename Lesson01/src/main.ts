@@ -500,107 +500,72 @@ const dataArray = [
     title: "Title 4",
     body: "Body 4",
   },
-  {
-    userId: 5,
-    id: 123,
-    title: "Title 5",
-    body: "Body 5",
-  },
-  {
-    userId: 6,
-    id: 789,
-    title: "Title 6",
-    body: "Body 6",
-  },
-  {
-    userId: 7,
-    id: 876,
-    title: "Title 7",
-    body: "Body 7",
-  },
-  {
-    userId: 8,
-    id: 345,
-    title: "Title 8",
-    body: "Body 8",
-  },
-  {
-    userId: 9,
-    id: 654,
-    title: "Title 9",
-    body: "Body 9",
-  },
-  {
-    userId: 10,
-    id: 432,
-    title: "Title 10",
-    body: "Body 10",
-  },
-  {
-    userId: 11,
-    id: 987,
-    title: "Title 11",
-    body: "Body 11",
-  },
-  {
-    userId: 12,
-    id: 234,
-    title: "Title 12",
-    body: "Body 12",
-  },
-  {
-    userId: 13,
-    id: 567,
-    title: "Title 13",
-    body: "Body 13",
-  },
-  {
-    userId: 14,
-    id: 456,
-    title: "Title 14",
-    body: "Body 14",
-  },
-  {
-    userId: 15,
-    id: 123,
-    title: "Title 15",
-    body: "Body 15",
-  },
-  {
-    userId: 16,
-    id: 789,
-    title: "Title 16",
-    body: "Body 16",
-  },
-  {
-    userId: 17,
-    id: 876,
-    title: "Title 17",
-    body: "Body 17",
-  },
-  {
-    userId: 18,
-    id: 345,
-    title: "Title 18",
-    body: "Body 18",
-  },
-  {
-    userId: 19,
-    id: 654,
-    title: "Title 19",
-    body: "Body 19",
-  },
-  {
-    userId: 20,
-    id: 432,
-    title: "Title 20",
-    body: "Body 20",
-  },
 ];
 
 console.log(getUsersProperty(dataArray, "id"));
 
-// class StatweObject<T>{
-//   private data: T
-//   constructor(value: T) {
-// }
+class StateObject<T> {
+  private data: T;
+
+  constructor(value: T) {
+    this.data = value;
+  }
+  get state(): T {
+    return this.data;
+  }
+  set state(value: T) {
+    this.data = value;
+  }
+}
+
+const store = new StateObject<string | number>(4);
+console.log("store.state", store.state);
+store.state = "2";
+console.log(store.state);
+
+///////////////////////////
+//UTILITY TYPES
+
+// Partial
+
+interface Assignment {
+  studentId: string;
+  title: string;
+  grade: number;
+  verified?: boolean;
+}
+
+const updateAssignment = (
+  assign: Assignment,
+  propsToUpdate: Partial<Assignment>
+): Assignment => {
+  return { ...assign, ...propsToUpdate };
+};
+
+const assign1: Assignment = {
+  studentId: "compsci123",
+  title: "final project",
+  grade: 0,
+};
+
+console.log(updateAssignment(assign1, { grade: 95 }));
+// the Partial utility type gave us the ability to update only one key value pair of the Assignment.
+const assignGraded: Assignment = updateAssignment(assign1, { grade: 67 });
+
+//REQUIRE amd Readonly Utility types
+
+const recordAssignment = (assign: Required<Assignment>): Assignment => {
+  //send to database
+  return assign;
+};
+
+const assignVerified: Readonly<Assignment> = {
+  ...assignGraded,
+  verified: true,
+};
+
+//assignVerified.grade = 100; // this will not work because the Readonly utility type makes the object immutable
+
+recordAssignment({ ...assignGraded, verified: true }); // this will work because we are not trying to change the assignVerified object);
+
+//RECORD UTILITY TYPE
