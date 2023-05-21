@@ -446,3 +446,11 @@ const gradeData = {
     Sara: { assign1: 100, assign2: 100 },
     kelly: { assign1: 90, assign2: 90 },
 };
+const score = {
+    studentId: "Lb54",
+    grade: 78,
+};
+const score2 = {
+    studentId: "Lb54",
+    title: "kid",
+};
