@@ -433,3 +433,16 @@ const assignVerified = Object.assign(Object.assign({}, assignGraded), { verified
 //assignVerified.grade = 100; // this will not work because the Readonly utility type makes the object immutable
 recordAssignment(Object.assign(Object.assign({}, assignGraded), { verified: true })); // this will work because we are not trying to change the assignVerified object);
 //RECORD UTILITY TYPE
+const hexColrorMap = {
+    red: "#ff0000",
+    green: "#00ff00",
+    blue: "#0000ff",
+};
+const finalGrades = {
+    Sara: "A",
+    kelly: "B",
+};
+const gradeData = {
+    Sara: { assign1: 100, assign2: 100 },
+    kelly: { assign1: 90, assign2: 90 },
+};

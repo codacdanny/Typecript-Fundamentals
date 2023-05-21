@@ -569,3 +569,26 @@ const assignVerified: Readonly<Assignment> = {
 recordAssignment({ ...assignGraded, verified: true }); // this will work because we are not trying to change the assignVerified object);
 
 //RECORD UTILITY TYPE
+
+const hexColrorMap: Record<string, string> = {
+  red: "#ff0000",
+  green: "#00ff00",
+  blue: "#0000ff",
+};
+
+type Students = "Sara" | "kelly";
+type LetterGrades = "A" | "B" | "C" | "D" | "F";
+
+const finalGrades: Record<Students, LetterGrades> = {
+  Sara: "A",
+  kelly: "B",
+};
+
+interface Grade {
+  assign1: number;
+  assign2: number;
+}
+const gradeData: Record<Students, Grade> = {
+  Sara: { assign1: 100, assign2: 100 },
+  kelly: { assign1: 90, assign2: 90 },
+};
