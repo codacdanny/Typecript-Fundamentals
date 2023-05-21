@@ -608,3 +608,9 @@ const score2: AssignPreview = {
   studentId: "Lb54",
   title: "kid",
 };
+
+//Exclude and Extract
+//These types only usually work with string union types, it also does not work with interfaces
+
+type adjustedGrade = Exclude<LetterGrades, "U">;
+type readjustGrade = Extract<LetterGrades, "A" | "C" | "B">;
