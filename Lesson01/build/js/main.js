@@ -454,3 +454,9 @@ const score2 = {
     studentId: "Lb54",
     title: "kid",
 };
+const names = "undefined";
+console.log(names);
+//Return type
+const createNewAssign = (title, points) => {
+    return { title, points };
+};

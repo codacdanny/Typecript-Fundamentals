@@ -614,3 +614,20 @@ const score2: AssignPreview = {
 
 type adjustedGrade = Exclude<LetterGrades, "U">;
 type readjustGrade = Extract<LetterGrades, "A" | "C" | "B">;
+
+//Nonnullable
+
+type AllPossibleGrades = "Daniel" | "John" | "null" | "undefined";
+
+type NamesOnly = NonNullable<AllPossibleGrades>;
+
+const names: NamesOnly = "undefined";
+console.log(names);
+
+//Return type
+
+const createNewAssign = (title: string, points: number) => {
+  return { title, points };
+};
+
+type returnTest = ReturnType<typeof createNewAssign>; //now when ever we change what the createnew Assign is returning it will automatically be updated in the returnTest variable
