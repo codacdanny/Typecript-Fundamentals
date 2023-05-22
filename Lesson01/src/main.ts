@@ -621,8 +621,8 @@ type AllPossibleGrades = "Daniel" | "John" | null | undefined;
 
 type NamesOnly = NonNullable<AllPossibleGrades>;
 
-const names: NamesOnly = undefined; // this does not work because of =the nullable utility type
-console.log(names);
+//const names: NamesOnly = undefined; // this does not work because of =the nullable utility type
+//console.log(names);
 
 //Return type
 
