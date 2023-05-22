@@ -617,11 +617,11 @@ type readjustGrade = Extract<LetterGrades, "A" | "C" | "B">;
 
 //Nonnullable
 
-type AllPossibleGrades = "Daniel" | "John" | "null" | "undefined";
+type AllPossibleGrades = "Daniel" | "John" | null | undefined;
 
 type NamesOnly = NonNullable<AllPossibleGrades>;
 
-const names: NamesOnly = "undefined";
+const names: NamesOnly = undefined; // this does not work because of =the nullable utility type
 console.log(names);
 
 //Return type
@@ -631,3 +631,23 @@ const createNewAssign = (title: string, points: number) => {
 };
 
 type returnTest = ReturnType<typeof createNewAssign>; //now when ever we change what the createnew Assign is returning it will automatically be updated in the returnTest variable
+
+//Awaited Utility types - this helps us with the returnType of a promise
+
+interface User {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+}
+const fetchUsers = async (): Promise<User[]> => {
+  const data = await fetch("https://jsonplaceholder.typicode.com/users")
+    .then((res) => res.json())
+    .catch((err) => {
+      if (err instanceof Error) console.log(err.message);
+    });
+  return data;
+};
+
+type FetchUsersReturnType = Awaited<ReturnType<typeof fetchUsers>>; // here this gives us the ability to ge the direct result of the promise no just the promise type
+fetchUsers().then((data) => console.log(data));

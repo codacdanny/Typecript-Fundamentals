@@ -4,6 +4,15 @@
 // let a: number = 12;
 // let b: number = 6;
 // let c: number = 2;
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 // console.log(a / b);
 // console.log(c * b);
 // let myName: string = "dave";
@@ -454,9 +463,19 @@ const score2 = {
     studentId: "Lb54",
     title: "kid",
 };
-const names = "undefined";
+const names = undefined; // this does not work because of =the nullable utility type
 console.log(names);
 //Return type
 const createNewAssign = (title, points) => {
     return { title, points };
 };
+const fetchUsers = () => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield fetch("https://jsonplaceholder.typicode.com/users")
+        .then((res) => res.json())
+        .catch((err) => {
+        if (err instanceof Error)
+            console.log(err.message);
+    });
+    return data;
+});
+fetchUsers().then((data) => console.log(data));
